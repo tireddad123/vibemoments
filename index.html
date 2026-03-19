@@ -1,21 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><title>VibeMoments — One photo a day</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>VibeMoments — One photo a day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <style>
 :root{ --footer-h:64px; --ink:#0c0f1e; --vibe:#7c3aed; --vibe-2:#4f46e5; --aura:#22c55e; --muted:#94a3b8; --text:#e6eaf3; --white:#fff; --footer-bg: rgba(12,15,30,.78); --footer-border:1px solid rgba(124,58,237,.18); --frost: rgba(10,12,26,.78); --shadow:0 8px 32px rgba(0,0,0,.25); --ab-h:56px; }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: linear-gradient(180deg,#0e1324 0%,#0d1223 60%,#0b1120 100%); color:var(--text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");}
+body::after{content:'';position:fixed;inset:-10vh;pointer-events:none;z-index:998;background:radial-gradient(1200px 700px at 50% -10%, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 60%),radial-gradient(1200px 700px at 100% 110%, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 65%);} 
 .screen{display:none;flex-direction:column;min-height:100dvh;animation:fadeUp .35s ease both}
 .screen.active{display:flex}
 @keyframes fadeUp{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)}}
+#screen-home{position:relative; overflow:hidden;}
+.home-bg{position:absolute; inset:0; background: radial-gradient(900px 600px at 50% -10%, rgba(124,58,237,.12) 0%, rgba(124,58,237,0) 65%);} 
 .container{width:min(1100px,92vw); margin-inline:auto}
 .hero{position:relative; z-index:1; flex:1; display:grid; grid-template-columns: 1.1fr .9fr; gap:2rem; align-items:center; padding: min(8vh,64px) 0 24px;}
 .brand{position:absolute; top:18px; left:calc((100vw - min(1100px,92vw))/2); display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--text); font-weight:700; letter-spacing:.2px; cursor:pointer;}
 .brand-dot{width:18px; height:18px; border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff 0 36%, var(--vibe) 40% 100%); box-shadow:0 0 0 3px rgba(255,255,255,.06), 0 8px 24px rgba(124,58,237,.55);} 
+.brand:focus-visible{outline:3px solid rgba(124,58,237,.5); outline-offset:3px; border-radius:12px;}
 .hero h1{font-family: "Playfair Display", serif; font-style: italic; font-weight: 600; font-size: clamp(2rem, 3.8vw, 3.4rem); line-height:1.1; margin-bottom:.5rem;}
 .lead{color:var(--muted); font-size:1.08rem; max-width: 60ch}
 .cta{display:flex; gap:.75rem; margin-top:1rem; flex-wrap:wrap}
 .btn{--bg: linear-gradient(135deg, var(--vibe), var(--vibe-2)); display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:44px; padding:.75rem 1.15rem; border-radius:14px; border:1px solid rgba(255,255,255,.08); background:var(--bg); color:var(--text); text-decoration:none; box-shadow:var(--shadow); font-weight:600;}
+.btn:focus-visible{outline:3px solid rgba(124,58,237,.35); outline-offset:2px}
+.btn.ghost{background:transparent; border-color:rgba(255,255,255,.12); color:var(--muted)}
 .progress-ring{ width:160px; height:160px; border-radius:50%; place-self:start; margin-top:18px; display:grid; place-items:center; position:relative; }
 .progress-ring .ring{ position:absolute; inset:-2px; }
 .progress-num{ font-family:"Playfair Display", serif; font-size:42px; color:#fff; text-shadow: 0 6px 28px rgba(124,58,237,.25) }
@@ -24,54 +38,319 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;b
 .icon-btn{ width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.12); display:grid; place-items:center; background:rgba(255,255,255,.06); color:#fff; cursor:pointer }
 .capture-zone{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding: 20px; padding-bottom: calc(var(--ab-h) + 24px);} 
 .photo-frame{ border-radius:24px; border:2px dashed rgba(255,255,255,.25); background:rgba(255,255,255,.04); color:var(--muted); display:grid; place-items:center; cursor:pointer; position:relative; overflow:hidden; transition: border-color .2s, background .2s }
+.photo-frame:hover{border-color: rgba(124,58,237,.6); background:rgba(255,255,255,.07)}
 .photo-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.photo-hint{display:grid; gap:8px; place-items:center}
 .caption{width:min(380px, 88vw)}
 .input{ width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); border-radius:14px; padding:14px 16px; color:#fff; font-size:15px; resize:none; outline:none }
 /* Responsive photo square */
 .capture-zone{ --frame-max-w: min(88vw, 520px); --frame-max-h: calc(100dvh - (var(--ab-h) + var(--footer-h) + 220px)); --frame: min(var(--frame-max-w), max(240px, var(--frame-max-h))); }
 .photo-frame{ width: var(--frame); height: var(--frame); }
+@media (max-height:700px){ .top-bar{ padding-top:24px; } .capture-zone{ gap:14px; } }
+/* Action bar pinned but accounted for */
 .action-bar { position: fixed; left:0; right:0; bottom: calc(var(--footer-h) + 12px + env(safe-area-inset-bottom)); height: var(--ab-h); display:grid; place-items:center; z-index:50; pointer-events:none; }
 .action-bar .btn.save { pointer-events:auto; padding:.78rem 1.25rem; border-radius:16px; box-shadow:0 8px 28px rgba(0,0,0,.35); }
-/* Calendar basics omitted for brevity here: they’re identical to the previous build */
-/* Legal overlay — IMPORTANT: hide when [hidden] */
+/* Calendar */
+#screen-calendar .container, #screen-calendar .month-nav, #screen-calendar .weekdays, #screen-calendar .grid, #screen-calendar .progress, #screen-calendar .progress-label{ width:min(860px,92vw); margin-left:auto; margin-right:auto; }
+.cal-header{ padding: 40px 18px 8px; }
+.cal-title{font-family:"Playfair Display", serif; font-size:28px}
+.cal-sub{font-size:13px; color:var(--muted); margin-top:4px}
+.month-nav{display:flex; align-items:center; gap:12px; padding: 0 0 12px}
+.month-label{flex:1; text-align:center; font-family:"Playfair Display", serif; font-style:italic; font-size:18px}
+.nav-btn{width:32px; height:32px; border-radius:50%; border:none; cursor:pointer; background:rgba(124,58,237,.2); color:#cdbdff}
+.nav-btn:hover{background:rgba(124,58,237,.35); color:#0c0f1e}
+.weekdays{display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:4px}
+.weekday{text-align:center; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#9aa6c1; padding:6px 0}
+.grid{display:grid; grid-template-columns:repeat(7,1fr); gap:3px; position:relative; }
+.day{aspect-ratio:1 / 1.05; border-radius:9px; display:grid; place-items:center; font-size:12px; cursor:pointer; position:relative; overflow:hidden; color:#d7def0}
+.day:hover{transform:scale(1.06)}
+.day.empty{pointer-events:none}
+.day.has{background:#151b36; color:#cdbdff; font-weight:600}
+.day.has::after{content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background:var(--vibe)}
+.day.today{outline:2px solid var(--vibe)}
+.day.has img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.72}
+.num{position:relative; z-index:1}
+.progress{ margin:14px auto 6px; height:4px; border-radius:4px; background:rgba(124,58,237,.18); overflow:hidden }
+.progress-fill{height:100%; border-radius:4px; background: linear-gradient(90deg, var(--vibe), var(--vibe-2))}
+.progress-label{font-size:12px; color:#9aa6c1}
+.calendar-spacer{ height: calc(var(--footer-h) + 16px + env(safe-area-inset-bottom)); }
+/* year toggle & collage */
+.mode-toggle{ display:flex; gap:8px; margin-left:auto; }
+.tab{ appearance:none; border:1px solid rgba(230,180,34,.28); color:#e6eaf3; background:rgba(255,255,255,.04); padding:6px 10px; border-radius:10px; cursor:pointer; font-size:12px; }
+.tab.is-active{ background:rgba(230,180,34,.14); border-color:rgba(230,180,34,.45); color:#ffeab6; }
+#cal-seams{ position:absolute; inset:0; pointer-events:none; }
+.free-mosaic{ display:grid-lanes; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:8px; margin-top:10px; }
+@supports not (display: grid-lanes){ .free-mosaic{ column-count:6; column-gap:8px; } .free-mosaic .tile{ break-inside: avoid; margin-bottom:8px; } }
+.free-moment{ border-radius:12px; overflow:hidden; background:rgba(255,255,255,.06); }
+.free-moment img{ width:100%; height:auto; display:block; }
+.free-moment .cap{ padding:10px; font-size:14px; color:#e6eaf6; }
+/* Footer nav */
+.bottom-nav{ position:fixed; left:0; right:0; bottom:0; height:var(--footer-h); padding-bottom:env(safe-area-inset-bottom); z-index:40; border-top-left-radius:16px; border-top-right-radius:16px; background:var(--footer-bg); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-top:var(--footer-border); box-shadow:0 -6px 24px rgba(0,0,0,.22); }
+.bottom-nav .inner{ max-width:420px; margin-inline:auto; display:flex; align-items:center; justify-content:center; gap:10px; height:100%; }
+.ni{display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; padding:6px 10px; border-radius:12px; border:none; background:transparent}
+.ni:hover{background:rgba(255,255,255,.07)}
+.ni.active .il{color:#cdbdff}
+.ic{font-size:20px; opacity:.6}
+.il{font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#cfd7f0}
+/* FAB */
+.fab{ position:fixed; right:max(16px, env(safe-area-inset-right)); bottom:calc(var(--footer-h) + 16px + env(safe-area-inset-bottom)); z-index:60; width:64px; height:64px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background: radial-gradient(circle at 32% 26%, #ffffff 0 24%, rgba(255,255,255,.78) 25% 34%, rgba(255,255,255,0) 35% 38%), radial-gradient(circle at 58% 64%, #6b3df0 0, #7738ef 55%, #8b5cf6 85%); box-shadow:0 8px 28px rgba(0,0,0,.35), inset 0 0 0 10px rgba(0,0,0,.28), inset 0 0 0 24px rgba(0,0,0,.14); cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; display:grid; place-items:center; }
+.fab:hover{ transform:translateY(-2px); box-shadow:0 12px 36px rgba(0,0,0,.42), inset 0 0 0 10px rgba(0,0,0,.28), inset 0 0 0 24px rgba(0,0,0,.14); }
+.fab:active{ transform:translateY(0); }
+.fab:focus-visible{ outline:3px solid rgba(124,58,237,.5); outline-offset:3px; }
+#screen-capture.active ~ .fab{ display:none; }
+.fab-svg{ width:28px; height:28px; color:#ffffff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+.fab-badge{ position:absolute; right:-2px; bottom:-2px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:14px; color:#0b0f20; background: linear-gradient(135deg, var(--aura), #38e389); border:1px solid rgba(0,0,0,.25); box-shadow: 0 8px 16px rgba(0,0,0,.35), 0 0 0 3px rgba(56, 227, 137, .25); }
+/* Toast & utils */
+.hidden{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+/* Footer: Legal links */
+.site-footer{ position: relative; z-index: 20; background: transparent; color: var(--muted); font-size: 12.5px; padding: 10px 0 calc(var(--footer-h) + 18px + env(safe-area-inset-bottom)); }
+.footer-inner{ display:flex; align-items:center; justify-content:center; gap:10px; }
+.legal-links{ display:inline-flex; align-items:center; gap:10px; }
+.legal-link{ color: #cfd7f0; text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.25); }
+.legal-link:hover,.legal-link:focus{ color: #e6eaf3; border-bottom-color: rgba(255,255,255,.45); outline: none; }
+/* Mosaic hero */
+.mosaic-hero{ position:relative; width:min(440px, 88%); aspect-ratio:1; justify-self:end; }
+.mosaic-hero .tiles{ display:grid-lanes; grid-template-columns:repeat(auto-fill, minmax(60px,1fr)); gap:6px; width:100%; height:100%; }
+@supports not (display: grid-lanes){ .mosaic-hero .tiles{ column-count:6; column-gap:6px; } .mosaic-hero .tiles > .tile{ break-inside: avoid; margin-bottom:6px; } }
+.tile{ border-radius:12px; overflow:hidden; background:rgba(255,255,255,.06); min-height:60px; }
+.tile img{ width:100%; height:auto; display:block; }
+.tile.color{ background: var(--swatch, rgba(255,255,255,.06)); }
+.kintsugi{ position:absolute; inset:0; pointer-events:none; }
+/* --- Fullscreen Legal Overlay (FIX) --- */
 .legal-overlay[hidden]{ display:none !important; }
 .legal-overlay{ position:fixed; inset:0; z-index:100; background:rgba(10,12,26,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); display:grid; place-items:center; }
 .legal-wrap{ width:min(1100px,96vw); height:min(88vh,96dvh); display:grid; grid-template-rows:auto 1fr auto; background:#0e1330; border:1px solid rgba(124,58,237,.25); border-radius:18px; box-shadow:0 22px 60px rgba(0,0,0,.45); overflow:hidden; }
+@media (max-width:640px){ .legal-wrap{ width:100vw; height:100dvh; border-radius:0; border:none; } }
 .legal-header{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 14px; background:rgba(255,255,255,.04); border-bottom:1px solid rgba(124,58,237,.22); }
 .legal-title{ font-family:"Playfair Display", serif; font-size:18px; font-style:italic; color:#e6eaf3; }
 .legal-close{ width:36px; height:36px; border-radius:10px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); color:#fff; cursor:pointer; }
 .legal-frame{ width:100%; height:100%; border:none; background:#0b1120; }
 .legal-foot{ padding:10px 12px; background:rgba(255,255,255,.04); border-top:1px solid rgba(124,58,237,.22); }
 body.legal-open{ overflow:hidden; }
-</style></head><body>
+</style>
+</head>
+<body>
+<!-- HOME -->
 <div id="screen-home" class="screen active">
-  <a href="#" class="brand" role="button" onclick="nav('home'); return false;"><span class="brand-dot" aria-hidden="true"></span><span>VibeMoments</span></a>
+  <div class="home-bg"></div>
+  <a href="#" class="brand" role="button" aria-label="Go to Home" title="Home" onclick="nav('home'); return false;">
+    <span class="brand-dot" aria-hidden="true"></span><span>VibeMoments</span>
+  </a>
   <section class="hero container">
     <div>
       <h1>One photo a day.<br/><span class="accent">Your year, repaired in gold.</span></h1>
       <p class="lead">Capture the vibe of each day and watch your mosaic come to life—seams of gold celebrate streaks and change.</p>
-      <div class="cta"><button class="btn" onclick="nav('capture')">📷 Capture Today</button><button class="btn ghost" onclick="nav('calendar')">View Year</button></div>
-      <div class="progress-ring"><svg class="ring" viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="76" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"></circle><defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs><circle id="ring-arc" cx="80" cy="80" r="76" fill="none" stroke="url(#grad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="0 480" transform="rotate(-90 80 80)"></circle></svg><div class="progress-num" id="doy">1</div><div class="progress-label">of 365</div></div>
+      <div class="cta">
+        <button class="btn" onclick="nav('capture')">📷 Capture Today</button>
+        <button class="btn ghost" onclick="nav('calendar')">View Year</button>
+      </div>
+      <div class="progress-ring">
+        <svg class="ring" viewBox="0 0 160 160" aria-hidden="true">
+          <circle cx="80" cy="80" r="76" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"></circle>
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs>
+          <circle id="ring-arc" cx="80" cy="80" r="76" fill="none" stroke="url(#grad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="0 480" transform="rotate(-90 80 80)"></circle>
+        </svg>
+        <div class="progress-num" id="doy">1</div>
+        <div class="progress-label">of 365</div>
+      </div>
     </div>
-    <div class="mosaic-hero"><div class="tiles" id="hero-tiles" aria-hidden="true"></div><svg class="kintsugi" id="hero-kintsugi" viewBox="0 0 1000 1000" role="presentation" aria-hidden="true"><defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E6B422"/><stop offset="100%" stop-color="#FCAF17"/></linearGradient><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#E6B422" flood-opacity="0.35"/></filter></defs><path id="hero-seam" d="" fill="none" stroke="url(#gold)" stroke-width="6" filter="url(#glow)" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="mosaic-hero">
+      <div class="tiles" id="hero-tiles" aria-hidden="true"></div>
+      <svg class="kintsugi" id="hero-kintsugi" viewBox="0 0 1000 1000" role="presentation" aria-hidden="true">
+        <defs>
+          <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#E6B422"/>
+            <stop offset="100%" stop-color="#FCAF17"/>
+          </linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#E6B422" flood-opacity="0.35"/>
+          </filter>
+        </defs>
+        <path id="hero-seam" d="" fill="none" stroke="url(#gold)" stroke-width="6"
+              filter="url(#glow)" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
   </section>
+  <nav class="bottom-nav"><div class="inner">
+    <button class="ni active" onclick="nav('home')"><span class="ic">🏠</span><span class="il">Home</span></button>
+    <button class="ni" onclick="nav('calendar')"><span class="ic">📅</span><span class="il">Year</span></button>
+    <button class="ni" onclick="nav('review')"><span class="ic">✨</span><span class="il">Memories</span></button>
+  </div></nav>
 </div>
 
-<!-- capture / calendar / review omitted for brevity - same logic as prior export -->
-<div id="legal-overlay" class="legal-overlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="legal-title"><div class="legal-wrap" role="document"><header class="legal-header"><h2 id="legal-title" class="legal-title">Loading…</h2><button class="legal-close" type="button" aria-label="Close legal panel" title="Close" onclick="closeLegal()">✕</button></header><iframe id="legal-frame" class="legal-frame" title="Legal content" src="about:blank"></iframe><footer class="legal-foot"><button class="btn ghost" type="button" onclick="closeLegal()">Close</button></footer></div></div>
+<!-- CAPTURE -->
+<div id="screen-capture" class="screen" aria-labelledby="cap-title">
+  <div class="top-bar container">
+    <button class="icon-btn" onclick="nav('home')" aria-label="Back">←</button>
+    <h2 id="cap-title" class="sr-only">Capture Today</h2>
+    <div class="cap-date-wrap" role="group" aria-label="Selected date">
+      <div class="date-chip" id="cap-date"></div>
+      <button class="date-chip mini" id="cap-date-picker" type="button" aria-label="Change date">📅</button>
+      <button class="date-chip mini ghost" id="cap-date-clear" type="button" aria-label="Clear date">Clear</button>
+    </div>
+    <input id="date-input" class="sr-only" type="date" />
+  </div>
+  <section class="capture-zone container">
+    <div class="photo-frame" id="frame" onclick="pickFile()">
+      <div class="photo-hint" id="frame-hint"><div style="font-size:42px;opacity:.7">📸</div><div>Tap to add photo</div></div>
+    </div>
+    <div class="caption"><textarea id="cap" class="input" rows="3" placeholder="What was today’s vibe…"></textarea></div>
+  </section>
+  <div class="action-bar"><button class="btn save" onclick="saveToday()">Save Moment</button></div>
+  <nav class="bottom-nav"><div class="inner">
+    <button class="ni" onclick="nav('home')"><span class="ic">🏠</span><span class="il">Home</span></button>
+    <button class="ni" onclick="nav('calendar')"><span class="ic">📅</span><span class="il">Year</span></button>
+    <button class="ni" onclick="nav('review')"><span class="ic">✨</span><span class="il">Memories</span></button>
+  </div></nav>
+</div>
+
+<!-- CALENDAR -->
+<div id="screen-calendar" class="screen">
+  <header class="cal-header container">
+    <div class="cal-title">Your Year</div>
+    <div class="cal-sub" id="cal-year-sub"></div>
+  </header>
+  <div class="month-nav">
+    <div class="mode-toggle">
+      <button class="tab is-active" id="mode-cal" type="button" aria-pressed="true">Structured</button>
+      <button class="tab" id="mode-free" type="button" aria-pressed="false">Collage</button>
+    </div>
+    <button class="nav-btn" onclick="shift(-1)">‹</button>
+    <div class="month-label" id="month-label"></div>
+    <button class="nav-btn" onclick="shift(1)">›</button>
+  </div>
+  <div class="weekdays"><div class="weekday">Su</div><div class="weekday">Mo</div><div class="weekday">Tu</div><div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div></div>
+  <div class="grid" id="grid"></div>
+  <svg id="cal-seams" class="kintsugi" role="presentation" aria-hidden="true"></svg>
+  <div id="free-mosaic" class="free-mosaic" hidden aria-hidden="true"></div>
+  <div class="progress"><div class="progress-fill" id="cal-fill" style="width:0%"></div></div>
+  <div class="progress-label" id="cal-label"></div>
+  <div class="calendar-spacer" aria-hidden="true"></div>
+  <nav class="bottom-nav"><div class="inner">
+    <button class="ni" onclick="nav('home')"><span class="ic">🏠</span><span class="il">Home</span></button>
+    <button class="ni active" onclick="nav('calendar')"><span class="ic">📅</span><span class="il">Year</span></button>
+    <button class="ni" onclick="nav('review')"><span class="ic">✨</span><span class="il">Memories</span></button>
+  </div></nav>
+</div>
+
+<!-- MEMORIES -->
+<div id="screen-review" class="screen">
+  <div class="review-header container">
+    <div class="review-title">Memories</div>
+    <div class="review-sub" id="rev-count"></div>
+  </div>
+  <section class="scroll" id="cards"></section>
+  <nav class="bottom-nav"><div class="inner">
+    <button class="ni" onclick="nav('home')"><span class="ic">🏠</span><span class="il">Home</span></button>
+    <button class="ni" onclick="nav('calendar')"><span class="ic">📅</span><span class="il">Year</span></button>
+    <button class="ni active" onclick="nav('review')"><span class="ic">✨</span><span class="il">Memories</span></button>
+  </div></nav>
+</div>
+
+<!-- Floating Capture Button -->
+<button class="fab" aria-label="Add photo" title="Add photo" onclick="nav('capture')">
+  <svg class="fab-svg" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="7" width="18" height="12" rx="2" fill="currentColor" opacity="0.22"></rect>
+    <rect x="7" y="5" width="6" height="3" rx="1.2" fill="currentColor" opacity="0.22"></rect>
+    <circle cx="12" cy="13" r="5.25" fill="none" stroke="currentColor" stroke-width="2.2"></circle>
+    <circle cx="12" cy="13" r="2.6" fill="currentColor"></circle>
+  </svg>
+  <span class="fab-badge" aria-hidden="true">+</span>
+</button>
+<div class="fab-hint" id="fab-hint" role="status" aria-live="polite">Add photo</div>
+
+<!-- Fullscreen Legal Overlay -->
+<div id="legal-overlay" class="legal-overlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="legal-wrap" role="document">
+    <header class="legal-header">
+      <h2 id="legal-title" class="legal-title">Loading…</h2>
+      <button class="legal-close" type="button" aria-label="Close legal panel" title="Close" onclick="closeLegal()">✕</button>
+    </header>
+    <iframe id="legal-frame" class="legal-frame" title="Legal content" src="about:blank"></iframe>
+    <footer class="legal-foot">
+      <button class="btn ghost" type="button" onclick="closeLegal()">Close</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="sheet">
+    <div class="handle"></div>
+    <img id="mimg" class="m-img hidden" alt="Memory preview" />
+    <div class="m-date" id="mdate"></div>
+    <div class="m-cap" id="mcap"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+<!-- Hidden file input -->
+<input id="file" type="file" accept="image/*" class="sr-only" />
 
 <script>
 const KEY='vibemoments_v1'; let state={ moments:{}, year:new Date().getFullYear() }; try{ const raw=localStorage.getItem(KEY); if(raw) state=JSON.parse(raw);}catch(e){}
-const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s); const CURRENT_YEAR=new Date().getFullYear();
+const todayKey=()=>{ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+const fmt=k=>{ const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d).toLocaleDateString('en-US',{month:'long', day:'numeric', year:'numeric'}); };
 const dayOfYear=(date=new Date())=>{ const start=new Date(date.getFullYear(),0,0); return Math.floor((date-start)/86400000); };
-function nav(){/* stub for this minimal rebuild */}
+const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} };
+const showToast=msg=>{ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); };
+function chipTextFromKey(key){ const [Y,M,D]=key.split('-').map(Number); const iso=`${Y}-${String(M).padStart(2,'0')}-${String(D).padStart(2,'0')}T12:00:00`; return new Date(iso).toLocaleDateString(undefined,{month:'short',day:'numeric'}).toUpperCase(); }
+async function getExifDateFromDataURL(dataURL){ try{ if(!dataURL.startsWith('data:image/jpeg')&&!dataURL.startsWith('data:image/jpg')) return null; const base64=dataURL.split(',')[1]; const binary=atob(base64); const len=binary.length; const buf=new ArrayBuffer(len); const view=new Uint8Array(buf); for(let i=0;i<len;i++) view[i]=binary.charCodeAt(i); const dv=new DataView(buf); let offset=2; while(offset<dv.byteLength){ if(dv.getUint8(offset)!==0xFF) break; const marker=dv.getUint8(offset+1); const size=dv.getUint16(offset+2,false); if(marker===0xE1){ const exifHeader=[0x45,0x78,0x69,0x66,0x00,0x00]; let ok=true; for(let i=0;i<6;i++){ if(dv.getUint8(offset+4+i)!==exifHeader[i]){ ok=false; break; } } if(ok){ const tiffStart=offset+10; const little=dv.getUint16(tiffStart,false)===0x4949; const getU16=p=>dv.getUint16(p,little); const getU32=p=>dv.getUint32(p,little); const ifd0=tiffStart+getU32(tiffStart+4); const count0=getU16(ifd0); let exifIFDPtr=null; for(let i=0;i<count0;i++){ const entry=ifd0+2+i*12; const tag=getU16(entry); if(tag===0x8769){ exifIFDPtr=tiffStart+getU32(entry+8); break; } } if(!exifIFDPtr) return null; const countExif=getU16(exifIFDPtr); for(let i=0;i<countExif;i++){ const entry=exifIFDPtr+2+i*12; const tag=getU16(entry); if(tag===0x9003){ const valCount=getU32(entry+4); const valOffset=getU32(entry+8); const strPtr=tiffStart+valOffset; let str=''; for(let k=0;k<valCount-1;k++){ str+=String.fromCharCode(dv.getUint8(strPtr+k)); } const m=str.match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})$/); if(m){ const[,Y,Mo,D,h,mi,s]=m; const iso=`${Y}-${Mo}-${D}T${h}:${mi}:${s}`; return iso; } return null; } } } } offset+=2+size; } return null; }catch{ return null; } }
+function keyFromISO(iso){ const d=new Date(iso); const yyyy=d.getFullYear(); const mm=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0'); return `${yyyy}-${mm}-${dd}`; }
+function setActiveTab(screen){ const root=document.getElementById(`screen-${screen}`); if(!root) return; root.querySelectorAll('.bottom-nav .ni').forEach(b=>b.classList.remove('active')); const idx=screen==='home'?1:screen==='calendar'?2:screen==='review'?3:0; if(idx){ root.querySelector(`.bottom-nav .ni:nth-child(${idx})`)?.classList.add('active'); } }
+function nav(screen){ $$('.screen').forEach(s=>s.classList.remove('active')); const target=document.getElementById(`screen-${screen}`); target.classList.add('active'); setActiveTab(screen); const fab=document.querySelector('.fab'); if(fab) fab.style.display=(screen==='capture')?'none':'block'; if(screen==='home') renderHome(); if(screen==='capture') renderCapture(); if(screen==='calendar') renderCalendar(); if(screen==='review') renderReview(); window.scrollTo(0,0); }
 function renderHome(){ const doy=dayOfYear(); $('#doy').textContent=doy; const circ=2*Math.PI*76; const dash=(doy/365)*circ; $('#ring-arc').setAttribute('stroke-dasharray', `${dash} ${circ-dash}`); buildHeroMosaic(); }
-const GOLD1='#E6B422', GOLD2='#FCAF17';
-const MOSAIC_SWATCHES=['#2b2f52','#4f46e5','#7c3aed','#0ea5e9','#22c55e','#ef4444','#f59e0b','#14b8a6'];
-function buildHeroMosaic(){ const wrap=document.getElementById('hero-tiles'); if(!wrap) return; wrap.innerHTML=''; for(let i=0;i<24;i++){ const d=document.createElement('div'); d.className='tile color'; d.style.setProperty('--swatch', MOSAIC_SWATCHES[i%MOSAIC_SWATCHES.length]); wrap.appendChild(d);} drawHeroSeam(); }
-function drawHeroSeam(){ const seam=document.getElementById('hero-seam'); const wrap=document.getElementById('hero-tiles'); if(!seam||!wrap) return; const w=wrap.clientWidth||1000, h=wrap.clientHeight||1000; const p=`M ${w*0.06},${h*0.82} C ${w*0.22},${h*0.74} ${w*0.30},${h*0.68} ${w*0.36},${h*0.60} S ${w*0.52},${h*0.46} ${w*0.64},${h*0.42} ${w*0.82},${h*0.34} ${w*0.94},${h*0.26}`; seam.setAttribute('d', p); }
-window.addEventListener('resize', drawHeroSeam);
-let _legalLastFocus=null; function openLegal(which){ _legalLastFocus=document.activeElement; const map={privacy:{title:'Privacy Policy',src:'privacy.html'}, terms:{title:'Terms of Service',src:'terms.html'}}; const cfg=map[which]||map.privacy; const ov=document.getElementById('legal-overlay'); const fr=document.getElementById('legal-frame'); const ti=document.getElementById('legal-title'); ti.textContent=cfg.title; fr.src=cfg.src; ov.hidden=false; ov.setAttribute('aria-hidden','false'); document.body.classList.add('legal-open'); (ov.querySelector('.legal-close')||{}).focus?.(); }
-function closeLegal(){ const ov=document.getElementById('legal-overlay'); const fr=document.getElementById('legal-frame'); ov.hidden=true; ov.setAttribute('aria-hidden','true'); document.body.classList.remove('legal-open'); fr.src='about:blank'; if(_legalLastFocus&&_legalLastFocus.focus) _legalLastFocus.focus(); }
+let pendingPhoto=null; let selectedDateKey=null;
+function renderCapture(){ const d=new Date(); selectedDateKey=todayKey(); $('#cap-date').textContent=d.toLocaleDateString('en-US',{month:'short', day:'numeric'}).toUpperCase(); const dateInput=$('#date-input'); const yr=CURRENT_YEAR; dateInput.min=`${yr}-01-01`; dateInput.max=`${yr}-12-31`; dateInput.value=selectedDateKey; const frame=$('#frame'); const hint=$('#frame-hint'); frame.querySelector('img')?.remove(); $('#cap').value=''; hint.classList.remove('hidden'); }
+function pickFile(){ $('#file').click(); }
+$('#file').addEventListener('change', e=>{ const f=e.target.files[0]; if(!f) return; const reader=new FileReader(); reader.onload=async ev=>{ pendingPhoto=ev.target.result; const exifISO=await getExifDateFromDataURL(pendingPhoto); const dateInput=$('#date-input'); if(exifISO){ const k=keyFromISO(exifISO); const year=parseInt(k.split('-')[0],10); if(year===CURRENT_YEAR){ selectedDateKey=k; $('#cap-date').textContent=chipTextFromKey(k); dateInput.value=k; } else { selectedDateKey=todayKey(); dateInput.value=selectedDateKey; $('#cap-date').textContent=chipTextFromKey(selectedDateKey); } } else { selectedDateKey=todayKey(); dateInput.value=selectedDateKey; $('#cap-date').textContent=chipTextFromKey(selectedDateKey); } const frame=$('#frame'); const hint=$('#frame-hint'); hint.classList.add('hidden'); let img=frame.querySelector('img'); if(!img){ img=new Image(); frame.appendChild(img);} img.src=pendingPhoto; }; reader.readAsDataURL(f); e.target.value=''; });
+$('#cap-date-picker').addEventListener('click', ()=>{ const el=$('#date-input'); if(typeof el.showPicker==='function') el.showPicker(); else el.click(); });
+$('#date-input').addEventListener('change', e=>{ const val=e.target.value; if(!val) return; selectedDateKey=val; $('#cap-date').textContent=chipTextFromKey(val); });
+$('#cap-date-clear').addEventListener('click', ()=>{ selectedDateKey=todayKey(); const d=new Date(); $('#cap-date').textContent=d.toLocaleDateString('en-US',{month:'short', day:'numeric'}).toUpperCase(); const dateInput=$('#date-input'); dateInput.value=selectedDateKey; dateInput.min=`${CURRENT_YEAR}-01-01`; dateInput.max=`${CURRENT_YEAR}-12-31`; });
+function saveToday(){ const key=selectedDateKey ?? todayKey(); const today=new Date(); today.setHours(0,0,0,0); const [y,m,d]=key.split('-').map(Number); const chosen=new Date(y,m-1,d); chosen.setHours(0,0,0,0); if(chosen>today){ showToast('Date is in the future. Please choose today or earlier.'); return; } const caption=$('#cap').value.trim(); if(!pendingPhoto && !caption){ showToast('Add a photo or caption first'); return; } state.moments[key]={ photo: pendingPhoto ?? null, caption, savedAt: Date.now() }; save(); showToast('Moment saved ✨'); const parts=key.split('-'); const yy=parseInt(parts[0],10); const mm=parseInt(parts[1],10)-1; cYear=yy; cMonth=mm; nav('calendar'); setTimeout(()=>{ const cell=document.querySelector(`#grid [data-key='${key}']`); if(cell){ cell.classList.add('highlight'); setTimeout(()=>cell.classList.remove('highlight'),1600); } },30); }
+let cYear=new Date().getFullYear(), cMonth=new Date().getMonth();
+function renderCalendar(){ $('#cal-year-sub').textContent=`${cYear} · ${Object.keys(state.moments).filter(k=>k.startsWith(cYear)).length} captured`; const months=['January','February','March','April','May','June','July','August','September','October','November','December']; $('#month-label').textContent=`${months[cMonth]} ${cYear}`; const grid=$('#grid'); grid.innerHTML=''; const first=new Date(cYear,cMonth,1).getDay(); const days=new Date(cYear,cMonth+1,0).getDate(); for(let i=0;i<first;i++){ const blank=document.createElement('div'); blank.className='day empty'; grid.appendChild(blank);} const today=new Date(); for(let d=1; d<=days; d++){ const key=`${cYear}-${String(cMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; const m=state.moments[key]; const div=document.createElement('div'); div.className='day'; div.setAttribute('data-key', key); const isToday=d===today.getDate() && cMonth===today.getMonth() && cYear===today.getFullYear(); if(isToday) div.classList.add('today'); if(m){ div.classList.add('has'); if(m.photo){ const img=new Image(); img.src=m.photo; div.appendChild(img);} div.onclick=()=>openModal(key);} const num=document.createElement('span'); num.className='num'; num.textContent=d; div.appendChild(num); grid.appendChild(div);} const yearMoments=Object.keys(state.moments).filter(k=>k.startsWith(cYear+'-')).length; $('#cal-fill').style.width=(yearMoments/365*100)+'%'; $('#cal-label').textContent=`${yearMoments} of 365 days captured`; setupModeToggle(); if(currentMode==='calendar'){ drawCalendarSeams(); } }
+function shift(dir){ cMonth+=dir; if(cMonth<0){cMonth=11;cYear--;} if(cMonth>11){cMonth=0;cYear++;} renderCalendar(); }
+function renderReview(){ const keys=Object.keys(state.moments).sort().reverse(); $('#rev-count').textContent=`${keys.length} moment${keys.length!==1?'s':''} captured`; const wrap=$('#cards'); wrap.innerHTML=''; if(keys.length===0){ wrap.innerHTML=`<div style=\"opacity:.7; text-align:center; padding:32px 0\">📷<br/>No moments yet. Start today!</div>`; return; } keys.forEach(key=>{ const m=state.moments[key]; const card=document.createElement('div'); card.className='card'; card.onclick=()=>openModal(key); const ph=document.createElement('div'); ph.className='card-photo'; if(m.photo){ const img=new Image(); img.src=m.photo; ph.appendChild(img);} else { ph.textContent='📷'; } const body=document.createElement('div'); body.className='card-body'; body.innerHTML=`<div class=\"card-date\">${fmt(key)}</div><div class=\"card-caption\">${m.caption ?? 'No caption'}</div>`; card.appendChild(ph); card.appendChild(body); wrap.appendChild(card); }); }
+function openModal(key){ const m=state.moments[key]; if(!m) return; const img=$('#mimg'); if(m.photo){ img.src=m.photo; img.classList.remove('hidden'); } else { img.classList.add('hidden'); } $('#mdate').textContent=fmt(key); $('#mcap').textContent=m.caption ?? ''; $('#overlay').classList.add('open'); }
+function closeModal(e){ if(e.target===$('#overlay')) $('#overlay').classList.remove('open'); }
+(function showFabCoachmarkOnce(){ try{ if(localStorage.getItem('vm_seen_fab_hint')==='1') return; const hint=document.getElementById('fab-hint'); if(!hint) return; setTimeout(()=>hint.classList.add('show'),800); setTimeout(()=>{ hint.classList.remove('show'); localStorage.setItem('vm_seen_fab_hint','1'); },3800); }catch(e){} })();
+/* --- Legal overlay controls --- */
+let _legalLastFocus = null;
+function openLegal(which){ _legalLastFocus = document.activeElement; const map = { privacy: { title: 'Privacy Policy', src: 'privacy.html' }, terms: { title: 'Terms of Service', src: 'terms.html' } }; const cfg = map[which] || map.privacy; const overlay = document.getElementById('legal-overlay'); const frame   = document.getElementById('legal-frame'); const titleEl = document.getElementById('legal-title'); titleEl.textContent = cfg.title; frame.src = cfg.src; overlay.hidden = false; overlay.setAttribute('aria-hidden', 'false'); document.body.classList.add('legal-open'); overlay.querySelector('.legal-close')?.focus(); }
+function closeLegal(){ const overlay = document.getElementById('legal-overlay'); const frame   = document.getElementById('legal-frame'); overlay.hidden = true; overlay.setAttribute('aria-hidden', 'true'); document.body.classList.remove('legal-open'); frame.src = 'about:blank'; if (_legalLastFocus && typeof _legalLastFocus.focus === 'function') { _legalLastFocus.focus(); } }
+document.addEventListener('keydown', (e) => { const ov = document.getElementById('legal-overlay'); if (!ov || ov.hidden) return; if (e.key === 'Escape') { e.preventDefault(); closeLegal(); } });
+(function attachOverlayClick(){ const ov = document.getElementById('legal-overlay'); if (!ov) return; ov.addEventListener('click', (e) => { if (e.target.id === 'legal-overlay') { closeLegal(); } }); })();
+(function openFromHash(){ const h = (location.hash || '').toLowerCase(); const ov = document.getElementById('legal-overlay'); if (ov && ov.hasAttribute('hidden')){ if (h === '#privacy') openLegal('privacy'); if (h === '#terms') openLegal('terms'); } })();
+/* Kintsugi hero and hybrid */
+const GOLD1 = '#E6B422', GOLD2='#FCAF17';
+const MOSAIC_SWATCHES = ['#2b2f52','#4f46e5','#7c3aed','#0ea5e9','#22c55e','#ef4444','#f59e0b','#14b8a6'];
+function getRecentKeys(limit=48){ const keys = Object.keys(state.moments).sort(); return keys.slice(-limit); }
+function buildHeroMosaic(){ const wrap = document.getElementById('hero-tiles'); if(!wrap) return; wrap.innerHTML=''; const keys = getRecentKeys(48).reverse(); if(keys.length===0){ for(let i=0;i<24;i++){ const d=document.createElement('div'); d.className='tile color'; d.style.setProperty('--swatch', MOSAIC_SWATCHES[i%MOSAIC_SWATCHES.length]); wrap.appendChild(d);} } else { keys.forEach((k,i)=>{ const m=state.moments[k]; const d=document.createElement('div'); d.className='tile'; if(m.photo){ const img=new Image(); img.src=m.photo; d.appendChild(img);} else { d.classList.add('color'); d.style.setProperty('--swatch', MOSAIC_SWATCHES[i%MOSAIC_SWATCHES.length]); } wrap.appendChild(d); }); } drawHeroSeam(); }
+function drawHeroSeam(){ const seam = document.getElementById('hero-seam'); const wrap = document.getElementById('hero-tiles'); if(!seam || !wrap) return; const w = wrap.clientWidth || 1000, h = wrap.clientHeight || 1000; const p = `M ${w*0.06},${h*0.82} C ${w*0.22},${h*0.74} ${w*0.30},${h*0.68} ${w*0.36},${h*0.60} S ${w*0.52},${h*0.46} ${w*0.64},${h*0.42} ${w*0.82},${h*0.34} ${w*0.94},${h*0.26}`; seam.setAttribute('d', p); }
+window.addEventListener('resize', ()=>{ drawHeroSeam(); });
+let currentMode = 'calendar';
+function setupModeToggle(){ const bCal = document.getElementById('mode-cal'); const bFree = document.getElementById('mode-free'); if(!bCal || !bFree) return; bCal.addEventListener('click', ()=>switchMode('calendar')); bFree.addEventListener('click', ()=>switchMode('collage')); }
+function switchMode(mode){ currentMode = mode; const bCal = document.getElementById('mode-cal'); const bFree = document.getElementById('mode-free'); const free = document.getElementById('free-mosaic'); const monthNav = document.querySelector('#screen-calendar .month-nav'); const weekdays = document.querySelector('#screen-calendar .weekdays'); const grid = document.getElementById('grid'); const seams = document.getElementById('cal-seams'); if(mode==='calendar'){ bCal.classList.add('is-active'); bCal.setAttribute('aria-pressed','true'); bFree.classList.remove('is-active'); bFree.setAttribute('aria-pressed','false'); free.hidden = true; free.setAttribute('aria-hidden','true'); monthNav.style.display=''; weekdays.style.display=''; grid.style.display='grid'; seams.style.display='block'; renderCalendar(); } else { bFree.classList.add('is-active'); bFree.setAttribute('aria-pressed','true'); bCal.classList.remove('is-active'); bCal.setAttribute('aria-pressed','false'); free.hidden = false; free.setAttribute('aria-hidden','false'); monthNav.style.display='none'; weekdays.style.display='none'; grid.style.display='none'; seams.style.display='none'; renderFreeMosaic(); } }
+function renderFreeMosaic(){ const wrap = document.getElementById('free-mosaic'); if(!wrap) return; wrap.innerHTML=''; const keys = Object.keys(state.moments).sort().reverse(); if(keys.length===0){ wrap.innerHTML='<div style="opacity:.7; text-align:center; padding:24px">No moments yet.</div>'; return; } keys.forEach(k=>{ const m=state.moments[k]; const div=document.createElement('div'); div.className='free-moment tile'; if(m.photo){ const img=new Image(); img.src=m.photo; div.appendChild(img);} else { div.classList.add('color'); div.style.setProperty('--swatch', MOSAIC_SWATCHES[Math.floor(Math.random()*MOSAIC_SWATCHES.length)]); const cap=document.createElement('div'); cap.className='cap'; cap.textContent=m.caption||''; div.appendChild(cap); } wrap.appendChild(div); }); }
+function drawCalendarSeams(){ const svg = document.getElementById('cal-seams'); const grid = document.getElementById('grid'); if(!svg || !grid) return; const rect = grid.getBoundingClientRect(); svg.setAttribute('width', rect.width); svg.setAttribute('height', rect.height); svg.innerHTML = `\n  <defs>\n    <linearGradient id="goldCal" x1="0" y1="0" x2="1" y2="1">\n      <stop offset="0%" stop-color="${GOLD1}"/>\n      <stop offset="100%" stop-color="${GOLD2}"/>\n    </linearGradient>\n    <filter id="glowCal" x="-50%" y="-50%" width="200%" height="200%">\n      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="${GOLD1}" flood-opacity="0.35"/>\n    </filter>\n  </defs>`; const days = Array.from(grid.querySelectorAll('.day.has')); if(days.length<2) return; const points = days.map(d=>{ const r = d.getBoundingClientRect(); const pr = grid.getBoundingClientRect(); const cx = r.left - pr.left + r.width/2; const cy = r.top - pr.top + r.height/2; const key = d.getAttribute('data-key'); return {cx, cy, key}; }).sort((a,b)=> a.key.localeCompare(b.key)); const streaks=[]; let cur=[points[0]]; function dateNext(key){ const [y,m,d]=key.split('-').map(Number); const dt=new Date(y,m-1,d); dt.setDate(dt.getDate()+1); return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`; } for(let i=1;i<points.length;i++){ const prev = cur[cur.length-1]; const expected = dateNext(prev.key); if(points[i].key===expected){ cur.push(points[i]); } else { if(cur.length>1) streaks.push(cur); cur=[points[i]]; } } if(cur.length>1) streaks.push(cur); streaks.forEach(seg=>{ const d = smoothPath(seg.map(p=>[p.cx,p.cy])); const path = document.createElementNS('http://www.w3.org/2000/svg','path'); path.setAttribute('d', d); path.setAttribute('fill','none'); path.setAttribute('stroke','url(#goldCal)'); path.setAttribute('stroke-width','5.5'); path.setAttribute('stroke-linecap','round'); path.setAttribute('stroke-linejoin','round'); path.setAttribute('filter','url(#glowCal)'); svg.appendChild(path); }); }
+function smoothPath(points){ if(points.length<2){ return ''; } let d = `M ${points[0][0]},${points[0][1]}`; for(let i=0;i<points.length-1;i++){ const p0 = points[i-1] || points[i]; const p1 = points[i]; const p2 = points[i+1]; const p3 = points[i+2] || p2; const cp1x = p1[0] + (p2[0]-p0[0])/6; const cp1y = p1[1] + (p2[1]-p0[1])/6; const cp2x = p2[0] - (p3[0]-p1[0])/6; const cp2y = p2[1] - (p3[1]-p1[1])/6; d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p2[0]},${p2[1]}`; } return d; }
+window.addEventListener('resize', ()=>{ const cal = document.getElementById('screen-calendar'); if(cal && cal.classList.contains('active') && currentMode==='calendar'){ drawCalendarSeams(); } drawHeroSeam(); });
 renderHome();
-</script></body></html>
+</script>
+
+<!-- Footer: Legal links -->
+<footer class="site-footer" role="contentinfo" aria-label="Legal">
+  <div class="container footer-inner">
+    <span class="legal-links">
+      <a class="legal-link" href="#" onclick="openLegal('privacy'); return false;">Privacy</a>
+      <span aria-hidden="true">·</span>
+      <a class="legal-link" href="#" onclick="openLegal('terms'); return false;">Terms</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>
