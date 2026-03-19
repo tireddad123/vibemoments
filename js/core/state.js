@@ -1,0 +1,3 @@
+export const STORAGE_KEY='vm_v2';
+export const DEFAULT_STATE={year:new Date().getFullYear(),moments:{},pro:{active:false,activatedAt:null},streak:{best:0,current:0,lastCapture:null,frozenDays:{},freezesUsedByYear:{}},milestones:{fired:[]},settings:{reminderTime:'20:00'},meta:{seenOnboarding:false,fabHintSeen:false,devUnlockTaps:0}};
+export let state=DEFAULT_STATE; export function mergeState(p){state={...state,...p};}

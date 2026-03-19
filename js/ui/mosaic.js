@@ -1,0 +1,3 @@
+import {state} from '../core/state.js';export function renderMosaic(){const wrap=document.getElementById('mosaic');wrap.innerHTML='';const year=new Date().getFullYear();const start=new Date(year,0,1);const today=new Date();today.setHours(0,0,0,0);for(let i=0;i<365;i++){const d=new Date(start);d.setDate(d.getDate()+i);const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const cell=document.createElement('div');cell.className='cell';if(d.getTime()===today.getTime())cell.classList.add('today');const m=state.moments[k];if(m){cell.style.background=m.color||'#151b36';cell.title=k;cell.onclick=()=>alert(k+'
+
+'+(m.caption||''));}wrap.appendChild(cell);}}
