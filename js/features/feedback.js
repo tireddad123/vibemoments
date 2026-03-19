@@ -1,4 +1,29 @@
-export function initFeedback(){const sheet=document.getElementById('feedback');let type='general';sheet.querySelectorAll('.type').forEach(b=>b.onclick=()=>{sheet.querySelectorAll('.type').forEach(x=>x.classList.remove('active'));b.classList.add('active');type=b.dataset.type;});document.getElementById('fb-send').onclick=async()=>{const email=(document.getElementById('fb-email').value||'').trim();const text=(document.getElementById('fb-text').value||'').trim();if(!text)return show('Please add a message.');const payload={type,email,text,ua:navigator.userAgent,ts:Date.now()};try{const res=await fetch('/.netlify/functions/feedback',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});if(!res.ok)throw 0;show('Thanks for the feedback!');}catch{const subj=encodeURIComponent('[VibeMoments] '+type+' feedback');const body=encodeURIComponent(text+'
+# from your repo root
+mkdir -p api
+cat > api/feedback.js <<'JS'
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).send('Method Not Allowed');
+  }
+  try {
+    const body = typeof req.body === 'string'
+      ? JSON.parse(req.body || '{}')
+      : (req.body || {});
 
-Email: '+(email||'n/a')+'
-UA: '+navigator.userAgent);window.location.href='mailto:hello@example.com?subject='+subj+'&body='+body;show('Opening email...');}};document.getElementById('fb-cancel').onclick=()=>sheet.classList.add('hidden');}function show(msg){const el=document.getElementById('fb-result');el.textContent=msg;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),2400);} 
+    console.log('Feedback', body);
+
+    return res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('Feedback error', err);
+    return res.status(400).send('Bad Request');
+  }
+}
+JS
+
+# update your fetch URL
+sed -i.bak "s#/.netlify/functions/feedback#/api/feedback#g" js/features/feedback.js
+
+git add api/feedback.js js/features/feedback.js
+git commit -m "feat: add /api/feedback and update client endpoint"
+git push
