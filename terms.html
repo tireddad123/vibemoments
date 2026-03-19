@@ -1,310 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Terms of Service — VibeMoments</title>
-<meta name="description" content="VibeMoments Terms of Service. Simple, plain English terms for a simple, honest app." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
-<link rel="apple-touch-icon" href="/icons/icon-180.png" />
-
-<style>
-  :root {
-    --bg:       #0b1120;
-    --surface:  #111827;
-    --border:   rgba(255,255,255,.07);
-    --vibe:     #7c3aed;
-    --vibe-lt:  #a78bfa;
-    --text:     #e2e8f0;
-    --muted:    #64748b;
-    --pro:      #f59e0b;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    background: var(--bg); color: var(--text);
-    line-height: 1.7; -webkit-font-smoothing: antialiased;
-  }
-  body::before {
-    content: ''; position: fixed; inset: 0; z-index: 999; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
-  }
-  body::after {
-    content: ''; position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 800px; height: 400px; z-index: 0; pointer-events: none;
-    background: radial-gradient(ellipse, rgba(124,58,237,.1) 0%, transparent 70%);
-  }
-  .nav {
-    position: sticky; top: 0; z-index: 10;
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    background: rgba(11,17,32,.8); border-bottom: 1px solid var(--border); padding: 16px 0;
-  }
-  .nav-inner {
-    max-width: 780px; margin-inline: auto; padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-brand {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 15px;
-  }
-  .nav-dot {
-    width: 20px; height: 20px; border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fff 0 34%, var(--vibe) 38% 100%);
-    box-shadow: 0 0 0 3px rgba(255,255,255,.06), 0 6px 20px rgba(124,58,237,.5);
-    flex-shrink: 0;
-  }
-  .nav-links { display: flex; gap: 24px; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
-  .hero {
-    position: relative; z-index: 1;
-    max-width: 780px; margin-inline: auto;
-    padding: 72px 24px 48px; border-bottom: 1px solid var(--border);
-  }
-  .hero-eyebrow {
-    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--vibe-lt); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--vibe-lt); }
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; font-style: italic;
-    line-height: 1.15; margin-bottom: 16px; color: #fff;
-  }
-  .hero-lead { font-size: 17px; color: var(--muted); max-width: 56ch; line-height: 1.65; }
-  .hero-meta { margin-top: 28px; display: flex; gap: 24px; flex-wrap: wrap; }
-  .hero-meta-item { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
-  .hero-meta-item strong { color: var(--text); }
-  .content {
-    position: relative; z-index: 1;
-    max-width: 780px; margin-inline: auto; padding: 48px 24px 80px;
-  }
-  .toc {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px 22px; margin-bottom: 48px;
-  }
-  .toc-title {
-    font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
-  }
-  .toc ol { padding-left: 18px; margin: 0; }
-  .toc li { font-size: 14px; margin-bottom: 6px; }
-  .toc a { color: var(--text); text-decoration: none; }
-  .toc a:hover { color: var(--vibe-lt); }
-  .section { margin-bottom: 56px; scroll-margin-top: 80px; }
-  .section-num { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--vibe-lt); margin-bottom: 8px; }
-  .section-title {
-    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600;
-    color: #fff; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
-  }
-  p { font-size: 15px; color: var(--muted); margin-bottom: 14px; line-height: 1.75; }
-  p:last-child { margin-bottom: 0; }
-  strong { color: var(--text); font-weight: 600; }
-  ul, ol { padding-left: 20px; margin-bottom: 14px; }
-  li { font-size: 15px; color: var(--muted); margin-bottom: 6px; line-height: 1.65; }
-  li strong { color: var(--text); }
-  .highlight-box {
-    background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.2);
-    border-radius: 12px; padding: 16px 18px; margin: 18px 0;
-    font-size: 14px; color: #c4b5fd; line-height: 1.6;
-  }
-  a { color: var(--vibe-lt); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  footer {
-    position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 32px 24px;
-    max-width: 780px; margin-inline: auto;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  }
-  .footer-copy { font-size: 13px; color: var(--muted); }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
-  .footer-links a:hover { color: var(--text); }
-  @media (max-width: 600px) { .nav-links { display: none; } .hero { padding-top: 48px; } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms of Service - VibeMoments</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    /* Hide the back link when this page is shown inside the in‑app overlay */
+    #back-link { display:inline-block; }
+  </style>
 </head>
 <body>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-brand"><div class="nav-dot"></div>VibeMoments</a>
-    <div class="nav-links">
-      <a href="/privacy.html">Privacy</a>
-      <a href="/terms.html" class="active">Terms</a>
-      <a href="/">Back to app</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="hero-eyebrow">Legal</div>
-  <h1 class="hero-title">Terms of Service</h1>
-  <p class="hero-lead">Plain English terms for a simple, honest app. By using VibeMoments, you agree to these terms.</p>
-  <div class="hero-meta">
-    <div class="hero-meta-item"><strong>Effective:</strong> March 18, 2026</div>
-    <div class="hero-meta-item"><strong>Last updated:</strong> March 18, 2026</div>
-    <div class="hero-meta-item"><strong>Contact:</strong> <a href="mailto:hello@vibemoments.app">hello@vibemoments.app</a></div>
-  </div>
-</header>
-
-<main class="content">
-
-  <div class="toc">
-    <div class="toc-title">Contents</div>
+  <main class="legal">
+    <h1>Terms of Service</h1>
     <ol>
-      <li><a href="#t1">Acceptance of terms</a></li>
-      <li><a href="#t2">Using VibeMoments</a></li>
-      <li><a href="#t3">Your content</a></li>
-      <li><a href="#t4">Pro upgrade and payments</a></li>
-      <li><a href="#t5">Refund policy</a></li>
-      <li><a href="#t6">AI caption feature</a></li>
-      <li><a href="#t7">Intellectual property</a></li>
-      <li><a href="#t8">Disclaimer of warranties</a></li>
-      <li><a href="#t9">Limitation of liability</a></li>
-      <li><a href="#t10">Termination</a></li>
-      <li><a href="#t11">Governing law</a></li>
-      <li><a href="#t12">Changes to terms</a></li>
-      <li><a href="#t13">Contact</a></li>
+      <li>Acceptance</li>
+      <li>Use of the Service</li>
+      <li>Accounts and Eligibility</li>
+      <li>Purchases and Refunds</li>
+      <li>Pro Features and IAP</li>
+      <li>User Content</li>
+      <li>AI Captions</li>
+      <li>Intellectual Property</li>
+      <li>Warranties and Disclaimers</li>
+      <li>Limitation of Liability</li>
+      <li>Termination</li>
+      <li>Governing Law</li>
+      <li>Changes</li>
     </ol>
-  </div>
-
-  <section class="section" id="t1">
-    <div class="section-num">01</div>
-    <h2 class="section-title">Acceptance of terms</h2>
-    <p>By downloading, installing, or using VibeMoments (the "App"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.</p>
-    <p>These Terms apply to all versions of VibeMoments, including the web app at vibemoments.app and any native iOS app distributed through the Apple App Store.</p>
-  </section>
-
-  <section class="section" id="t2">
-    <div class="section-num">02</div>
-    <h2 class="section-title">Using VibeMoments</h2>
-    <p>VibeMoments is a personal daily photo journaling app. You may use it for personal, non-commercial purposes in accordance with these Terms.</p>
-    <p>You agree not to:</p>
-    <ul>
-      <li>Use the App to store or share illegal content, including content that violates intellectual property rights or depicts harm to others</li>
-      <li>Attempt to reverse engineer, decompile, or extract the source code of the App for commercial purposes</li>
-      <li>Use the AI caption feature to process images you do not have the right to use</li>
-      <li>Attempt to circumvent the Pro upgrade system or access Pro features without payment</li>
-      <li>Use automated tools to abuse the AI caption API in ways that incur disproportionate costs</li>
-    </ul>
-  </section>
-
-  <section class="section" id="t3">
-    <div class="section-num">03</div>
-    <h2 class="section-title">Your content</h2>
-    <p><strong>Your photos and captions are yours.</strong> VibeMoments does not claim any ownership over content you create or store in the App.</p>
-    <p>Because your data is stored locally on your device, you are responsible for maintaining your own backups. We strongly recommend using the Export feature regularly. We are not liable for data loss resulting from device failure, browser storage clearing, OS eviction of app data, or any other cause.</p>
-    <p>By using the AI caption feature, you grant Anthropic a temporary, limited license to process the submitted image solely for the purpose of generating a caption. This is governed by <a href="https://www.anthropic.com/legal/usage-policy" target="_blank" rel="noopener">Anthropic's usage policies</a>. We do not receive or retain any copy of your image on our servers.</p>
-  </section>
-
-  <section class="section" id="t4">
-    <div class="section-num">04</div>
-    <h2 class="section-title">Pro upgrade and payments</h2>
-    <p>VibeMoments Pro is available as a <strong>one-time purchase</strong>. Upon successful payment, Pro features are unlocked on the device used to make the purchase.</p>
-    <ul>
-      <li><strong>Web purchase (Stripe):</strong> Pro status is stored locally on the device used to purchase. You are responsible for backing up your Pro status using the export feature if you plan to switch devices.</li>
-      <li><strong>iOS App Store purchase (Apple IAP):</strong> Purchases are managed by Apple and can be restored on any device signed into the same Apple ID via the App Store's standard restore mechanism.</li>
-    </ul>
-    <p>All prices are listed in USD and are subject to change. Any price changes will not affect purchases already completed.</p>
-  </section>
-
-  <section class="section" id="t5">
-    <div class="section-num">05</div>
-    <h2 class="section-title">Refund policy</h2>
-    <p><strong>Web purchases (Stripe):</strong> We offer a 7-day refund window for Pro purchases made on the web. If you are unsatisfied for any reason within 7 days of purchase, contact us at <a href="mailto:hello@vibemoments.app">hello@vibemoments.app</a> and we will issue a full refund.</p>
-    <p><strong>iOS App Store purchases:</strong> Refunds for purchases made through the App Store are handled by Apple according to <a href="https://support.apple.com/en-us/118223" target="_blank" rel="noopener">Apple's refund policy</a>. You can request a refund at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>.</p>
-    <div class="highlight-box">
-      We stand behind VibeMoments. If something isn't working as expected, please contact us before requesting a refund — we want to make it right.
-    </div>
-  </section>
-
-  <section class="section" id="t6">
-    <div class="section-num">06</div>
-    <h2 class="section-title">AI caption feature</h2>
-    <p>The "Suggest caption" feature (available to Pro users) uses Anthropic's Claude API to generate caption suggestions. By using this feature:</p>
-    <ul>
-      <li>You confirm you have the right to submit the image for processing</li>
-      <li>You understand the generated caption is a suggestion only — you are not required to use it</li>
-      <li>You acknowledge that AI-generated text may occasionally be inaccurate, inappropriate, or not reflective of your actual experience</li>
-      <li>You agree not to use the feature in a way that violates <a href="https://www.anthropic.com/legal/usage-policy" target="_blank" rel="noopener">Anthropic's usage policies</a></li>
-    </ul>
-    <p>We reserve the right to suspend access to the AI caption feature for users who abuse it or use it in ways that incur excessive costs or violate these terms.</p>
-  </section>
-
-  <section class="section" id="t7">
-    <div class="section-num">07</div>
-    <h2 class="section-title">Intellectual property</h2>
-    <p>The VibeMoments name, logo, app design, and underlying code are the intellectual property of VibeMoments and its developer. You may not reproduce, distribute, or create derivative works from any part of VibeMoments without written permission.</p>
-    <p>The typefaces used in the app (Playfair Display, DM Sans) are licensed under the SIL Open Font License and are not owned by VibeMoments.</p>
-  </section>
-
-  <section class="section" id="t8">
-    <div class="section-num">08</div>
-    <h2 class="section-title">Disclaimer of warranties</h2>
-    <p>VibeMoments is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-    <p>We do not warrant that:</p>
-    <ul>
-      <li>The App will be uninterrupted, error-free, or free of viruses</li>
-      <li>The AI caption feature will always produce accurate or appropriate results</li>
-      <li>Data stored locally on your device will not be lost</li>
-      <li>The App will be available in all geographic regions at all times</li>
-    </ul>
-  </section>
-
-  <section class="section" id="t9">
-    <div class="section-num">09</div>
-    <h2 class="section-title">Limitation of liability</h2>
-    <p>To the maximum extent permitted by applicable law, VibeMoments and its developer shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of data, loss of profits, or loss of goodwill — arising out of or in connection with your use of the App.</p>
-    <p>Our total liability to you for any claim arising from these Terms or your use of VibeMoments shall not exceed the amount you paid for the Pro upgrade, or $9.99 if no purchase was made.</p>
-    <p>Some jurisdictions do not allow the exclusion or limitation of certain damages. In such cases, our liability is limited to the greatest extent permitted by applicable law.</p>
-  </section>
-
-  <section class="section" id="t10">
-    <div class="section-num">10</div>
-    <h2 class="section-title">Termination</h2>
-    <p>You may stop using VibeMoments at any time by deleting the app from your device. Since data is stored locally, deleting the app will remove your data — we recommend exporting your data before doing so.</p>
-    <p>We reserve the right to suspend or terminate access to VibeMoments (or specific features such as AI captions) for users who violate these Terms, without prior notice.</p>
-  </section>
-
-  <section class="section" id="t11">
-    <div class="section-num">11</div>
-    <h2 class="section-title">Governing law</h2>
-    <p>These Terms are governed by the laws of the State of South Carolina, excluding conflicts-of-law rules. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in the United States.</p>
-    <p>If you are using VibeMoments from outside the United States, you are responsible for compliance with local laws.</p>
-  </section>
-
-  <section class="section" id="t12">
-    <div class="section-num">12</div>
-    <h2 class="section-title">Changes to terms</h2>
-    <p>We may update these Terms from time to time. When we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, provide notice within the App.</p>
-    <p>Continued use of VibeMoments after any changes constitutes your acceptance of the updated Terms.</p>
-  </section>
-
-  <section class="section" id="t13">
-    <div class="section-num">13</div>
-    <h2 class="section-title">Contact</h2>
-    <p>Questions about these Terms? Get in touch:</p>
-    <ul>
-      <li><strong>Email:</strong> <a href="mailto:hello@vibemoments.app">hello@vibemoments.app</a></li>
-      <li><strong>Response time:</strong> We aim to respond within 3 business days.</li>
-    </ul>
-  </section>
-
-</main>
-
-<footer>
-  <div class="footer-copy">© 2026 VibeMoments. All rights reserved.</div>
-  <div class="footer-links">
-    <a href="/privacy.html">Privacy</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/">App</a>
-  </div>
-</footer>
-
+    <p>By using VibeMoments you agree to these Terms.</p>
+    <p><a id="back-link" href="index.html">Back</a></p>
+  </main>
+  <script>
+    // If this page is rendered inside an iframe (in-app overlay), hide the Back link
+    (function(){
+      try {
+        if (window.self !== window.top) {
+          var el = document.getElementById('back-link');
+          if (el) el.style.display = 'none';
+        }
+      } catch (e) {
+        // cross-origin frame access can throw; fail silently
+      }
+    })();
+  </script>
 </body>
 </html>
